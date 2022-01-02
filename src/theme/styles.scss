@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;500;600;700&display=swap');
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+:root {
+
+  @media (prefers-color-scheme: dark) {
+    --bkg-primary: hsl(248, 35%, 8%);
+    --bkg-secondary: hsl(234, 33%, 17%);
+    --bkg-ui: hsl(234, 32%, 17%);
+    --accent-primary: hsl(236, 80%, 57%);
+    --accent-secondary: hsl(53, 100%, 70%);
+    --accent-neutral: hsl(230, 5%, 45%);
+    --text-primary: hsl(240, 9%, 91%);
+    --text-secondary: hsl(243, 10%, 66%);
+  }
+
+  @media (prefers-color-scheme: light) {
+    --bkg-primary: hsl(240, 9%, 91%);
+    --bkg-secondary: hsl(240, 9%, 91%);
+    --bkg-ui: hsl(234, 50%, 62%);
+    --accent-primary: hsl(236, 80%, 57%);
+    --accent-secondary: hsl(53, 100%, 70%);
+    --accent-neutral: hsl(230, 5%, 45%);
+    --text-primary: hsl(248, 35%, 8%);
+    --text-secondary: hsl(243, 10%, 66%);
+  }
+}
+
+html { height: 100%; min-height: 100vh;}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  font-size: 1rem;
+  background: var(--bkg-primary);
+  color: var(--text-primary);
+}
+
+#root {
+  height: 100%;
+}
+
+body, h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
