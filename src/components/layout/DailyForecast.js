@@ -1,23 +1,31 @@
 import DayTile from "../ui/DayTile";
-import getDates from "../../utils/date";
-import { useMemo } from "react";
+import { formatDate } from "../../utils/date";
+import { useContext } from "react";
 import { WEATHER } from "../../theme/weather";
 import styled from "styled-components";
+import { WeatherContext } from "../../context/weatherContext";
 
-export default function DailyForecast({ currentDay }) {
-  const dates = useMemo(() => getDates(currentDay), [currentDay]);
+export default function DailyForecast() {
+  const wCtx = useContext(WeatherContext);
+
   return (
     <DailyForecastWrapper>
       <Days>
-        {dates.map(
-          (date, idx) =>
+        {wCtx.state.map(
+          (item, idx) =>
             idx > 0 && (
               <DayTile
                 key={idx}
-                day={date.name}
-                high="16"
-                low="11"
-                weather={WEATHER.SNOW}
+                day={
+                  !item.date
+                    ? ""
+                    : idx === 1
+                    ? "Tomorrow"
+                    : formatDate(item.date)
+                }
+                high={item.temp.max}
+                low={item.temp.min}
+                weather={WEATHER[item.weather]?.image}
               />
             )
         )}
@@ -28,7 +36,6 @@ export default function DailyForecast({ currentDay }) {
 
 const DailyForecastWrapper = styled.div`
   width: 100%;
-  max-width: 720px;
   display: flex;
   justify-content: center;
   margin-left: auto;
@@ -37,7 +44,6 @@ const DailyForecastWrapper = styled.div`
 
 const Days = styled.div`
   width: 100%;
-  margin: 1.5rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
   gap: 1.5rem;

@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { COLORS } from "../../theme/colors";
 
-export default function Input({ flex, placeholder, icon }) {
+export default function Input({ flex, placeholder, reference }) {
   return (
     <Wrapper flex={flex}>
       <SearchIcon />
-      <InputElement placeholder={placeholder} />
+      <InputElement placeholder={placeholder} ref={reference} />
     </Wrapper>
   );
 }

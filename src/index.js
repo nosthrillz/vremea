@@ -3,10 +3,19 @@ import ReactDOM from "react-dom";
 import "./theme/styles.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { LocationProvider } from "./context/locationContext";
+import { UiProvider } from "./context/uiContext";
+import { WeatherProvider } from "./context/weatherContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LocationProvider>
+      <UiProvider>
+        <WeatherProvider>
+          <App />
+        </WeatherProvider>
+      </UiProvider>
+    </LocationProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
