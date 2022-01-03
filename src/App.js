@@ -1,11 +1,14 @@
+// components
 import Locations from "./components/layout/Locations";
 import TodayForecast from "./components/layout/TodayForecast";
-import DailyForecast from "./components/layout/DailyForecast";
-import styled from "styled-components";
-import { useState } from "react";
-import { SIZES } from "./theme/spacing";
+import DayTileList from "./components/layout/DayTileList";
 import DailyHighlights from "./components/layout/DailyHighlights";
 import UnitSwitcher from "./components/ui/UnitSwitcher";
+// lib
+import styled from "styled-components";
+import { useState } from "react";
+// helpers
+import { SIZES } from "./theme/spacing";
 
 function App() {
   const [showLocations, setShowLocations] = useState(false);
@@ -20,7 +23,7 @@ function App() {
 
       <ForecastWrapper>
         <UnitSwitcher />
-        <DailyForecast currentDay={new Date()} />
+        <DayTileList currentDay={new Date()} />
         <DailyHighlights />
       </ForecastWrapper>
     </Wrapper>

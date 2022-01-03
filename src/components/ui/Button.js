@@ -1,4 +1,6 @@
+// lib
 import styled from "styled-components";
+// helpers
 import { COLORS } from "../../theme/colors";
 import { SIZES } from "../../theme/spacing";
 

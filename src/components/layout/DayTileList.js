@@ -1,17 +1,20 @@
+// components
 import DayTile from "../ui/DayTile";
-import { formatDate } from "../../utils/date";
+// lib
 import { useContext } from "react";
-import { WEATHER } from "../../theme/weather";
 import styled from "styled-components";
+// helpers
+import { formatDate } from "../../utils/date";
+import { WEATHER } from "../../utils/weather";
 import { WeatherContext } from "../../context/weatherContext";
 
-export default function DailyForecast() {
-  const wCtx = useContext(WeatherContext);
+export default function DayTileList() {
+  const weatherCtx = useContext(WeatherContext);
 
   return (
-    <DailyForecastWrapper>
+    <Wrapper>
       <Days>
-        {wCtx.state.map(
+        {weatherCtx.state.map(
           (item, idx) =>
             idx > 0 && (
               <DayTile
@@ -30,11 +33,11 @@ export default function DailyForecast() {
             )
         )}
       </Days>
-    </DailyForecastWrapper>
+    </Wrapper>
   );
 }
 
-const DailyForecastWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;

@@ -61,13 +61,6 @@ export const WEATHER = {
   },
 };
 
-// export const getWeatherByName = (apiName) =>
-//   !apiName
-//     ? WEATHER.SNOW
-//     : Object.values(WEATHER).find(
-//         (item) => item.api_name === apiName.toLowerCase()
-//       );
-
 export const getWeatherByName = (value) => {
   switch (value) {
     case "sn":

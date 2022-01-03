@@ -1,8 +1,11 @@
+// components
+import CircleButton from "./CircleButton";
+// lib
 import { useContext } from "react";
 import styled from "styled-components";
+// helpers
 import { UiContext } from "../../context/uiContext";
 import { SIZES } from "../../theme/spacing";
-import CircleButton from "./CircleButton";
 
 export default function UnitSwitcher() {
   const uiCtx = useContext(UiContext);

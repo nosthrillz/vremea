@@ -1,21 +1,22 @@
-// DEVELOPMENT ONLY
-//TODO: REPLACE WITH ACTUAL API
-
-const base_url =
+/* DEV-ONLY CORS proxy
+const __dev_base_url =
   "https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/";
 
-const devHeader = {
+const __devHeader = {
   "X-Requested-With": "React",
 };
+*/
+
+const base_url = "https://www.metaweather.com/api/location/";
 
 export const getGPS = async () => {
   const position = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 
-  const devUrl = `${base_url}search/?lattlong=${position.coords.latitude},${position.coords.longitude}`;
+  const url = `${base_url}search/?lattlong=${position.coords.latitude},${position.coords.longitude}`;
   try {
-    const response = await fetch(devUrl, devHeader);
+    const response = await fetch(url);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -24,10 +25,10 @@ export const getGPS = async () => {
 };
 
 export const getLocationList = async (input) => {
-  const devUrl = `${base_url}search/?query=${input}`;
+  const url = `${base_url}search/?query=${input}`;
 
   try {
-    const response = await fetch(devUrl, devHeader);
+    const response = await fetch(url);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -35,12 +36,11 @@ export const getLocationList = async (input) => {
   }
 };
 
-// get weather based on state
 export const getWeather = async (locationState) => {
-  const devUrl = `${base_url}${locationState.woeid}`;
+  const url = `${base_url}${locationState.woeid}`;
 
   try {
-    const response = await fetch(devUrl, devHeader);
+    const response = await fetch(url);
     const data = await response.json();
     return data;
   } catch (error) {

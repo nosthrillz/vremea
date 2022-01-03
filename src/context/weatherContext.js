@@ -1,5 +1,7 @@
-import React, { createContext, useReducer } from "react";
-import { getWeatherByName } from "../theme/weather";
+// lib
+import { createContext, useReducer } from "react";
+// helpers
+import { getWeatherByName } from "../utils/weather";
 
 export const WeatherContext = createContext();
 

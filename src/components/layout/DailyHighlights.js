@@ -1,12 +1,15 @@
+// components
+import InfoCard from "../ui/InfoCard";
+// lib
 import { useContext } from "react";
 import styled from "styled-components";
+// helpers
 import { WeatherContext } from "../../context/weatherContext";
 import { SIZES } from "../../theme/spacing";
-import InfoCard from "../ui/InfoCard";
 
 export default function DailyHighlights() {
-  const wCtx = useContext(WeatherContext);
-  const todayState = wCtx.state[0];
+  const weatherCtx = useContext(WeatherContext);
+  const todayState = weatherCtx.state[0];
 
   return (
     <Wrapper>

@@ -1,9 +1,11 @@
-import { useState, useContext } from "react";
+// lib
+import { useContext } from "react";
 import styled from "styled-components";
+// helpers
 import { UiContext } from "../../context/uiContext";
 import { COLORS } from "../../theme/colors";
-import useImage from "../../utils/useImage";
 import { convertToF } from "../../utils/tempConvert";
+import useImage from "../../utils/useImage";
 
 export default function DayTile({ day, high, low, weather }) {
   const weatherImg = !!weather ? weather : "weather_clear.png";

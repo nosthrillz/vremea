@@ -1,4 +1,5 @@
-import React, { createContext, useReducer } from "react";
+// lib
+import { createContext, useReducer } from "react";
 
 export const UiContext = createContext();
 

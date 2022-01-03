@@ -1,5 +1,6 @@
-import React from "react";
+// lib
 import styled from "styled-components";
+// helpers
 import { COLORS } from "../../theme/colors";
 
 export default function Input({ flex, placeholder, reference }) {

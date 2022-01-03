@@ -1,8 +1,11 @@
-import styled from "styled-components";
-import { COLORS } from "../../theme/colors";
-import { SIZES } from "../../theme/spacing";
+// components
 import ProgressBar from "./ProgressBar";
 import WindStatus from "./WindStatus";
+// lib
+import styled from "styled-components";
+// helpers
+import { COLORS } from "../../theme/colors";
+import { SIZES } from "../../theme/spacing";
 
 export default function InfoCard({
   type,

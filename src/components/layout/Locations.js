@@ -1,22 +1,25 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+// components
 import Input from "../ui/Input";
 import Button from "../ui/Button";
+import Spinner from "../ui/Spinner";
+// lib
+import { useContext, useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+// helpers
 import { COLORS } from "../../theme/colors";
 import { SIZES } from "../../theme/spacing";
 import { LocationContext } from "../../context/locationContext";
 import { WeatherContext } from "../../context/weatherContext";
 import { getWeather, getLocationList } from "../../utils/api";
-import Spinner from "../ui/Spinner";
 
 export default function Locations({ visible, onClose }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingList, setIsLoadingList] = useState(false);
-  const inputRef = useRef();
   const [locations, setLocations] = useState([]);
-  const locCtx = useContext(LocationContext);
-  const wCtx = useContext(WeatherContext);
+  const inputRef = useRef();
+  const locationCtx = useContext(LocationContext);
+  const weatherCtx = useContext(WeatherContext);
 
   useEffect(() => setIsVisible(visible), [visible]);
 
@@ -44,13 +47,13 @@ export default function Locations({ visible, onClose }) {
       woeid: selectedData.woeid,
     };
 
-    await locCtx.dispatch({
+    await locationCtx.dispatch({
       type: "update",
       payload,
     });
 
     const newData = await getWeather(payload);
-    await wCtx.dispatch({ type: "update", payload: newData });
+    await weatherCtx.dispatch({ type: "update", payload: newData });
 
     setIsLoading(false);
     closeHandler();

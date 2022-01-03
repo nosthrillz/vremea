@@ -1,32 +1,37 @@
-import React, { useContext, useState } from "react";
+// components
 import Button from "../ui/Button";
 import CircleButton from "../ui/CircleButton";
+import Spinner from "../ui/Spinner";
+// lib
+import { useContext, useState } from "react";
 import styled from "styled-components";
+// helpers
 import { COLORS } from "../../theme/colors";
 import { SIZES } from "../../theme/spacing";
-import IconGPS from "../../images/icon_gps.svg";
-import IconLocation from "../../images/icon_location.svg";
-import CloudsBackground from "../../images/Cloud-background.png";
 import { LocationContext } from "../../context/locationContext";
 import useImage from "../../utils/useImage";
 import { WeatherContext } from "../../context/weatherContext";
-import Spinner from "../ui/Spinner";
 import { formatDate } from "../../utils/date";
 import { getGPS, getWeather } from "../../utils/api";
-import { WEATHER } from "../../theme/weather";
+import { WEATHER } from "../../utils/weather";
 import { UiContext } from "../../context/uiContext";
 import { convertToF } from "../../utils/tempConvert";
+// assets
+import IconGPS from "../../images/icon_gps.svg";
+import IconLocation from "../../images/icon_location.svg";
+import CloudsBackground from "../../images/Cloud-background.png";
 
 export default function TodayForecast({ onSearch }) {
   const [isLoading, setIsLoading] = useState(false);
-  const locCtx = useContext(LocationContext);
-  const wCtx = useContext(WeatherContext);
-  const weatherImg = !!wCtx.state[0].weather
-    ? WEATHER[wCtx.state[0].weather].image
+  const locationCtx = useContext(LocationContext);
+  const weatherCtx = useContext(WeatherContext);
+  const uiCtx = useContext(UiContext);
+
+  const weatherImg = !!weatherCtx.state[0].weather
+    ? WEATHER[weatherCtx.state[0].weather].image
     : "weather_clear.png";
   const { image } = useImage(weatherImg);
   const currentDate = formatDate();
-  const uiCtx = useContext(UiContext);
   const isCelsius = uiCtx.state.isCelsius;
   const units = isCelsius ? "C" : "F";
 
@@ -42,12 +47,12 @@ export default function TodayForecast({ onSearch }) {
       woeid: gps[0].woeid,
     };
 
-    await locCtx.dispatch({
+    await locationCtx.dispatch({
       type: "update",
       payload,
     });
     const newData = await getWeather(payload);
-    await wCtx.dispatch({ type: "update", payload: newData });
+    await weatherCtx.dispatch({ type: "update", payload: newData });
 
     setIsLoading(false);
   };
@@ -77,11 +82,11 @@ export default function TodayForecast({ onSearch }) {
       <WeatherTemp>
         <h1>
           {isCelsius
-            ? wCtx.state[0].temp.avg
-            : convertToF(wCtx.state[0].temp.avg)}
+            ? weatherCtx.state[0].temp.avg
+            : convertToF(weatherCtx.state[0].temp.avg)}
           <span>º{units}</span>
         </h1>
-        <h2>{WEATHER[wCtx.state[0].weather]?.value}</h2>
+        <h2>{WEATHER[weatherCtx.state[0].weather]?.value}</h2>
       </WeatherTemp>
       <DateTimePlace>
         <Date>
@@ -90,7 +95,11 @@ export default function TodayForecast({ onSearch }) {
         </Date>
         <Location>
           <img src={IconLocation} alt="location icon" />
-          <p>{locCtx.state?.name ? locCtx.state.name : "Unknown location"}</p>
+          <p>
+            {locationCtx.state?.name
+              ? locationCtx.state.name
+              : "Unknown location"}
+          </p>
         </Location>
       </DateTimePlace>
       {isLoading && <Spinner />}

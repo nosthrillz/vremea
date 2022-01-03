@@ -1,7 +1,10 @@
+// lib
 import styled from "styled-components";
+// helpers
 import { SIZES } from "../../theme/spacing";
-import IconDirection from "../../images/icon_direction.svg";
 import { COLORS } from "../../theme/colors";
+// assets
+import IconDirection from "../../images/icon_direction.svg";
 
 export default function WindStatus({ direction = "", compass = "" }) {
   return (

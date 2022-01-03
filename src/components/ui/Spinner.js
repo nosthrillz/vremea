@@ -1,3 +1,4 @@
+// lib
 import styled, { keyframes } from "styled-components";
 
 export default function Spinner() {
