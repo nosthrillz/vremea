@@ -1,5 +1,6 @@
 // lib
 import styled, { keyframes } from "styled-components";
+import { COLORS } from "../../theme/colors";
 
 export default function Spinner() {
   return (
@@ -25,7 +26,7 @@ to{transform: rotate(.5turn)};
 const SpinnerAnimated = styled.div`
   width: 60px;
   height: 60px;
-  --c: radial-gradient(farthest-side, #25b09b 92%, #0000);
+  --c: radial-gradient(farthest-side, ${COLORS.accent.primary} 92%, #0000);
   background: var(--c) 50% 0, var(--c) 50% 100%, var(--c) 100% 50%,
     var(--c) 0 50%;
   background-size: 12px 12px;

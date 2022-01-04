@@ -14,10 +14,14 @@ const uiReducer = (state, action) => {
     return {
       isCelsius: !state.isCelsius,
       isFahrenheit: !state.isFahrenheit,
-      ...state,
+      onboarding: state.onboarding,
     };
   if (action.type === "disableOnboarding")
-    return { ...state, onboarding: false };
+    return {
+      isCelsius: state.isCelsius,
+      isFahrenheit: state.isFahrenheit,
+      onboarding: false,
+    };
 };
 
 export function UiProvider({ children }) {
