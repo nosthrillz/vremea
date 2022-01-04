@@ -221,6 +221,10 @@ const WeatherTemp = styled.div`
     font-weight: 600;
     color: ${COLORS.text.secondary};
   }
+  @media screen and (max-width: ${SIZES.breakpoint.mobile}) {
+    gap: ${SIZES.inc_2};
+    margin: ${SIZES.inc_1_25} 0;
+  }
 `;
 
 const DateTimePlace = styled.div`
@@ -232,6 +236,9 @@ const DateTimePlace = styled.div`
   color: ${COLORS.text.secondary};
   width: 100%;
   margin: ${SIZES.inc_3} 0;
+  @media screen and (max-width: ${SIZES.breakpoint.mobile}) {
+    margin: ${SIZES.inc_1_25} 0;
+  }
 `;
 
 const Date = styled.div`
