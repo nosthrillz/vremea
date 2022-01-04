@@ -2,11 +2,13 @@
 import styled from "styled-components";
 // helpers
 import { COLORS } from "../../theme/colors";
+// assets
+import IconSearch from "../../images/icon_search.svg";
 
 export default function Input({ flex, placeholder, reference }) {
   return (
     <Wrapper flex={flex}>
-      <SearchIcon />
+      <SearchIcon src={IconSearch} alt="search" />
       <InputElement placeholder={placeholder} ref={reference} />
     </Wrapper>
   );
@@ -17,17 +19,14 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const SearchIcon = styled.div`
-  &:before {
-    content: "⚲";
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%) rotate(-45deg);
-    line-height: 1;
-    font-size: 2rem;
-    color: ${COLORS.text.secondary};
-  }
+const SearchIcon = styled.img`
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+  font-size: 2rem;
+  color: ${COLORS.text.secondary};
 `;
 
 const InputElement = styled.input`
