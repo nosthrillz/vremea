@@ -10,6 +10,7 @@ import { COLORS } from "../../theme/colors";
 import { SIZES } from "../../theme/spacing";
 import { LocationContext } from "../../context/locationContext";
 import useImage from "../../utils/useImage";
+import useString from "../../utils/useString";
 import { WeatherContext } from "../../context/weatherContext";
 import { formatDate } from "../../utils/date";
 import { getGPS, getWeather } from "../../utils/api";
@@ -26,12 +27,13 @@ export default function TodayForecast({ onSearch }) {
   const locationCtx = useContext(LocationContext);
   const weatherCtx = useContext(WeatherContext);
   const uiCtx = useContext(UiContext);
+  const t = useString();
 
   const weatherImg = !!weatherCtx.state[0].weather
     ? WEATHER[weatherCtx.state[0].weather].image
     : "weather_clear.png";
   const { image } = useImage(weatherImg);
-  const currentDate = formatDate();
+  const currentDate = formatDate(navigator.language);
   const isCelsius = uiCtx.state.isCelsius;
   const units = isCelsius ? "C" : "F";
 
@@ -68,7 +70,7 @@ export default function TodayForecast({ onSearch }) {
     <Wrapper isOnboarding={uiCtx.state.onboarding}>
       <SearchButtons isOnboarding={uiCtx.state.onboarding}>
         <Button variant="secondary" onClick={onSearch}>
-          Search for places
+          {t("todayForecast.button")}
         </Button>
         <CircleButton
           variant="secondary"
@@ -79,10 +81,7 @@ export default function TodayForecast({ onSearch }) {
         </CircleButton>
       </SearchButtons>
       {uiCtx.state.onboarding ? (
-        <OnboardingText>
-          To get started, <strong>search</strong> for a place or use your{" "}
-          <strong>current</strong> device location
-        </OnboardingText>
+        <OnboardingText>{t("todayForecast.welcome")}</OnboardingText>
       ) : (
         <>
           <WeatherImage>
@@ -100,11 +99,11 @@ export default function TodayForecast({ onSearch }) {
                 : convertToF(weatherCtx.state[0].temp.avg)}
               <span>º{units}</span>
             </h1>
-            <h2>{WEATHER[weatherCtx.state[0].weather]?.value}</h2>
+            <h2>{t(`weather.${weatherCtx.state[0].weather}`)}</h2>
           </WeatherTemp>
           <DateTimePlace>
             <Date>
-              <p>Today</p>
+              <p>{t("todayForecast.today")}</p>
               <p className="date">{currentDate}</p>
             </Date>
             <Location>
@@ -185,6 +184,11 @@ const WeatherImage = styled.div`
   img.weather {
     width: 200px;
     height: 200px;
+
+    @media screen and (max-width: ${SIZES.breakpoint.mobile}) {
+      width: 150px;
+      height: 150px;
+    }
   }
 `;
 
@@ -202,6 +206,13 @@ const WeatherTemp = styled.div`
     span {
       font-size: ${SIZES.inc_4};
       color: ${COLORS.text.secondary};
+    }
+
+    @media screen and (max-width: ${SIZES.breakpoint.mobile}) {
+      font-size: ${SIZES.inc_4};
+      span {
+        font-size: ${SIZES.inc_2};
+      }
     }
   }
 
@@ -241,6 +252,7 @@ const Location = styled.div`
 `;
 
 const OnboardingText = styled.h1`
+  text-align: center;
   margin-top: ${SIZES.inc_4};
   font-size: ${SIZES.inc_1_5};
 

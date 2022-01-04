@@ -11,10 +11,12 @@ import { useState, useContext } from "react";
 import { SIZES } from "./theme/spacing";
 import { UiContext } from "./context/uiContext";
 import { COLORS } from "./theme/colors";
+import useString from "./utils/useString";
 
 function App() {
   const [showLocations, setShowLocations] = useState(false);
   const uiCtx = useContext(UiContext);
+  const t = useString();
 
   return (
     <Wrapper>
@@ -26,9 +28,7 @@ function App() {
       <ForecastWrapper>
         {uiCtx.state.onboarding ? (
           <div>
-            <OnboardingText>
-              Welcome to <strong>Vremea</strong> - the forecasting app
-            </OnboardingText>
+            <OnboardingText>{t("main.welcome")}</OnboardingText>
           </div>
         ) : (
           <>
@@ -93,6 +93,7 @@ const Footer = styled.footer`
 `;
 
 const OnboardingText = styled.h1`
+  text-align: center;
   margin-top: ${SIZES.inc_4};
   font-size: ${SIZES.inc_2};
 

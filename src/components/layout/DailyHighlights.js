@@ -6,38 +6,40 @@ import styled from "styled-components";
 // helpers
 import { WeatherContext } from "../../context/weatherContext";
 import { SIZES } from "../../theme/spacing";
+import useString from "../../utils/useString";
 
 export default function DailyHighlights() {
   const weatherCtx = useContext(WeatherContext);
   const todayState = weatherCtx.state[0];
+  const t = useString();
 
   return (
     <Wrapper>
-      <h1>Today's highlights</h1>
+      <h1>{t("main.highlights")}</h1>
       <Highlights>
         <InfoCard
           type="wind"
-          text="Wind status"
+          text={t("main.wind")}
           value={todayState.wind.speed}
           direction={todayState.wind.direction}
-          compass={todayState.wind.compass}
+          compass={t(`compass.${todayState.wind.compass}`)}
           unit="mph"
         />
         <InfoCard
           type="humidity"
-          text="Humidity"
+          text={t("main.humidity")}
           value={todayState.humidity}
           unit="%"
         />
         <InfoCard
           type="visibility"
-          text="Visibility"
+          text={t("main.visibility")}
           value={todayState.visibility}
-          unit="miles"
+          unit="mi"
         />
         <InfoCard
           type="pressure"
-          text="Air pressure"
+          text={t("main.pressure")}
           value={todayState.pressure}
           unit="mb"
         />

@@ -12,6 +12,7 @@ import { LocationContext } from "../../context/locationContext";
 import { WeatherContext } from "../../context/weatherContext";
 import { UiContext } from "../../context/uiContext";
 import { getWeather, getLocationList } from "../../utils/api";
+import useString from "../../utils/useString";
 
 export default function Locations({ visible, onClose }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,6 +23,7 @@ export default function Locations({ visible, onClose }) {
   const locationCtx = useContext(LocationContext);
   const weatherCtx = useContext(WeatherContext);
   const uiCtx = useContext(UiContext);
+  const t = useString();
 
   useEffect(() => setIsVisible(visible), [visible]);
 
@@ -64,9 +66,13 @@ export default function Locations({ visible, onClose }) {
   return (
     <Wrapper visible={isVisible}>
       <SearchBar>
-        <Input flex={3} placeholder="search location" reference={inputRef} />
+        <Input
+          flex={3}
+          placeholder={t("location.input")}
+          reference={inputRef}
+        />
         <Button variant="primary" onClick={searchLocationHandler}>
-          Search
+          {t("location.button")}
         </Button>
         <CloseIcon onClick={closeHandler}>+</CloseIcon>
       </SearchBar>

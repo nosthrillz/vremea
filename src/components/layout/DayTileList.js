@@ -7,9 +7,11 @@ import styled from "styled-components";
 import { formatDate } from "../../utils/date";
 import { WEATHER } from "../../utils/weather";
 import { WeatherContext } from "../../context/weatherContext";
+import useString from "../../utils/useString";
 
 export default function DayTileList() {
   const weatherCtx = useContext(WeatherContext);
+  const t = useString();
 
   return (
     <Wrapper>
@@ -23,8 +25,8 @@ export default function DayTileList() {
                   !item.date
                     ? ""
                     : idx === 1
-                    ? "Tomorrow"
-                    : formatDate(item.date)
+                    ? t("main.tomorrow")
+                    : formatDate(navigator.language, item.date)
                 }
                 high={item.temp.max}
                 low={item.temp.min}
