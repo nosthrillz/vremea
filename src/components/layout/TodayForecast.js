@@ -37,22 +37,28 @@ export default function TodayForecast({ onSearch }) {
 
   const handleGetGPSLocation = async () => {
     setIsLoading(true);
-    const gps = await getGPS();
-    const lattlong = gps[0].latt_long.split(",");
+    try {
+      const gps = await getGPS();
+      const lattlong = gps[0].latt_long.split(",");
 
-    const payload = {
-      lat: lattlong[0],
-      long: lattlong[1],
-      name: gps[0].title,
-      woeid: gps[0].woeid,
-    };
+      const payload = {
+        lat: lattlong[0],
+        long: lattlong[1],
+        name: gps[0].title,
+        woeid: gps[0].woeid,
+      };
 
-    await locationCtx.dispatch({
-      type: "update",
-      payload,
-    });
-    const newData = await getWeather(payload);
-    await weatherCtx.dispatch({ type: "update", payload: newData });
+      await locationCtx.dispatch({
+        type: "update",
+        payload,
+      });
+      const newData = await getWeather(payload);
+      await weatherCtx.dispatch({ type: "update", payload: newData });
+    } catch {
+      alert(
+        "To get a forecast for your location, you must enable Location services."
+      );
+    }
 
     setIsLoading(false);
   };

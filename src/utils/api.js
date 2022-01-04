@@ -10,14 +10,13 @@ export const getGPS = async () => {
   const position = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
-
   const url = `${proxy_base_url}search/?lattlong=${position.coords.latitude},${position.coords.longitude}`;
   try {
     const response = await fetch(url, proxy_header);
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(error);
+    return false;
   }
 };
 
