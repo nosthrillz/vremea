@@ -59,6 +59,9 @@ const Wrapper = styled.div`
   h1 {
       align-self: flex-start;
   }
+  @media screen and (max-width: ${SIZES.breakpoint.tablet}) {
+    margin-top: ${SIZES.default};
+  }
 `;
 
 const Highlights = styled.div`

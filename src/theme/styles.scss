@@ -20,12 +20,12 @@
   @media (prefers-color-scheme: light) {
     --bkg-primary: hsl(240, 9%, 91%);
     --bkg-secondary: hsl(240, 9%, 91%);
-    --bkg-ui: hsl(234, 50%, 62%);
-    --accent-primary: hsl(236, 80%, 57%);
+    --bkg-ui: hsl(234, 43%, 87%);
+    --accent-primary: hsl(236, 57%, 73%);
     --accent-secondary: hsl(53, 100%, 70%);
-    --accent-neutral: hsl(230, 5%, 45%);
+    --accent-neutral: hsl(230, 7%, 61%);
     --text-primary: hsl(248, 35%, 8%);
-    --text-secondary: hsl(243, 10%, 66%);
+    --text-secondary: hsl(243, 5%, 49%);
   }
 }
 
@@ -43,12 +43,16 @@ body {
 
 #root {
   height: 100%;
-  overflow: auto;
+
 }
 
 body, h1, h2, h3, h4, h5, h6, p, ul, li {
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: inherit;
 }
 
 li {

@@ -1,22 +1,19 @@
-/* DEV-ONLY CORS proxy
-const __dev_base_url =
-  "https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/";
+const base_url = "https://www.metaweather.com/api/location/";
 
-const __devHeader = {
+// CORS proxy
+const proxy_base_url = `${process.env.REACT_APP_PROXY_URL}/${base_url}`;
+const proxy_header = {
   "X-Requested-With": "React",
 };
-*/
-
-const base_url = "https://www.metaweather.com/api/location/";
 
 export const getGPS = async () => {
   const position = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 
-  const url = `${base_url}search/?lattlong=${position.coords.latitude},${position.coords.longitude}`;
+  const url = `${proxy_base_url}search/?lattlong=${position.coords.latitude},${position.coords.longitude}`;
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, proxy_header);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -25,10 +22,10 @@ export const getGPS = async () => {
 };
 
 export const getLocationList = async (input) => {
-  const url = `${base_url}search/?query=${input}`;
+  const url = `${proxy_base_url}search/?query=${input}`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, proxy_header);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -37,10 +34,10 @@ export const getLocationList = async (input) => {
 };
 
 export const getWeather = async (locationState) => {
-  const url = `${base_url}${locationState.woeid}`;
+  const url = `${proxy_base_url}${locationState.woeid}`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, proxy_header);
     const data = await response.json();
     return data;
   } catch (error) {

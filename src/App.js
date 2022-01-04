@@ -25,6 +25,10 @@ function App() {
         <UnitSwitcher />
         <DayTileList currentDay={new Date()} />
         <DailyHighlights />
+        <Footer>
+          <a href="https://github.com/nosthrillz">NoSThrillZ</a> -{" "}
+          <a href="https://devchallenges.io">devChallenges.io</a>
+        </Footer>
       </ForecastWrapper>
     </Wrapper>
   );
@@ -43,18 +47,35 @@ const Wrapper = styled.div`
 `;
 
 const ForecastWrapper = styled.main`
+  height: 100%;
   width: calc(100% - 450px);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: ${SIZES.inc_1_5};
   gap: ${SIZES.inc_2};
+  overflow: auto;
 
   @media screen and (max-width: ${SIZES.breakpoint.mobile}) {
     width: 100%;
     padding: ${SIZES.default};
+    overflow: unset;
   }
+
   > * {
     max-width: ${SIZES.layout.main.maxWidth};
+  }
+`;
+
+const Footer = styled.footer`
+  width: 100%;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  padding-bottom: ${SIZES.default};
+  margin-top: ${SIZES.inc_3};
+
+  @media screen and (max-width: ${SIZES.breakpoint.tablet}) {
+    margin: 0;
   }
 `;
