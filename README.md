@@ -2,6 +2,17 @@
 
 I build this app in response to the [challenge](https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv) from devChallenges.io and added my own flair to it.
 
+>**Table of Contents**
+>*   [Live preview](#live-preview)
+>*   [User stories](#user-stories)
+>*   [Tech stack](#tech-stack)
+>*   [Screenshots](#screenshots)
+>*   [Install and run](#install-and-run)
+
+## Live preview
+
+Check out the live deployment hosted on Vercel: [vremea.vercel.app](https://vremea.vercel.app).
+
 ## User stories
 
 Quoted from the devChallenges.io:
@@ -44,11 +55,6 @@ I built this using the following:
 * Responsive layout and 3 languages supported (mobile)
 
     ![Two themes](screenshots/mobile.png)
-
-
-## Live preview
-
-Check out the live deployment hosted on Vercel: [vremea.vercel.app](https://vremea.vercel.app).
 
 ## Install and run
 
