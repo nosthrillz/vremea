@@ -6,10 +6,18 @@ export const UiContext = createContext();
 const initialState = {
   isCelsius: true,
   isFahrenheit: false,
+  onboarding: true,
 };
 
-const uiReducer = (state) => {
-  return { isCelsius: !state.isCelsius, isFahrenheit: !state.isFahrenheit };
+const uiReducer = (state, action) => {
+  if (action.type === "toggleUnits")
+    return {
+      isCelsius: !state.isCelsius,
+      isFahrenheit: !state.isFahrenheit,
+      ...state,
+    };
+  if (action.type === "disableOnboarding")
+    return { ...state, onboarding: false };
 };
 
 export function UiProvider({ children }) {

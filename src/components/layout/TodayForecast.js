@@ -59,13 +59,14 @@ export default function TodayForecast({ onSearch }) {
         "To get a forecast for your location, you must enable Location services."
       );
     }
+    await uiCtx.dispatch({ type: "disableOnboarding" });
 
     setIsLoading(false);
   };
 
   return (
-    <Wrapper>
-      <Buttons>
+    <Wrapper isOnboarding={uiCtx.state.onboarding}>
+      <SearchButtons isOnboarding={uiCtx.state.onboarding}>
         <Button variant="secondary" onClick={onSearch}>
           Search for places
         </Button>
@@ -76,38 +77,47 @@ export default function TodayForecast({ onSearch }) {
         >
           <img src={IconGPS} alt="current GPS location icon" />
         </CircleButton>
-      </Buttons>
-      <WeatherImage>
-        <img
-          className="background"
-          src={CloudsBackground}
-          alt="clouds background"
-        />
-        <img className="weather" src={image} alt="weather" />
-      </WeatherImage>
-      <WeatherTemp>
-        <h1>
-          {isCelsius
-            ? weatherCtx.state[0].temp.avg
-            : convertToF(weatherCtx.state[0].temp.avg)}
-          <span>º{units}</span>
-        </h1>
-        <h2>{WEATHER[weatherCtx.state[0].weather]?.value}</h2>
-      </WeatherTemp>
-      <DateTimePlace>
-        <Date>
-          <p>Today</p>
-          <p className="date">{currentDate}</p>
-        </Date>
-        <Location>
-          <img src={IconLocation} alt="location icon" />
-          <p>
-            {locationCtx.state?.name
-              ? locationCtx.state.name
-              : "Unknown location"}
-          </p>
-        </Location>
-      </DateTimePlace>
+      </SearchButtons>
+      {uiCtx.state.onboarding ? (
+        <OnboardingText>
+          To get started, <strong>search</strong> for a place or use your{" "}
+          <strong>current</strong> device location
+        </OnboardingText>
+      ) : (
+        <>
+          <WeatherImage>
+            <img
+              className="background"
+              src={CloudsBackground}
+              alt="clouds background"
+            />
+            <img className="weather" src={image} alt="weather" />
+          </WeatherImage>
+          <WeatherTemp>
+            <h1>
+              {isCelsius
+                ? weatherCtx.state[0].temp.avg
+                : convertToF(weatherCtx.state[0].temp.avg)}
+              <span>º{units}</span>
+            </h1>
+            <h2>{WEATHER[weatherCtx.state[0].weather]?.value}</h2>
+          </WeatherTemp>
+          <DateTimePlace>
+            <Date>
+              <p>Today</p>
+              <p className="date">{currentDate}</p>
+            </Date>
+            <Location>
+              <img src={IconLocation} alt="location icon" />
+              <p>
+                {locationCtx.state?.name
+                  ? locationCtx.state.name
+                  : "Unknown location"}
+              </p>
+            </Location>
+          </DateTimePlace>
+        </>
+      )}
       {isLoading && <Spinner />}
     </Wrapper>
   );
@@ -125,7 +135,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${(props) =>
+    props.isOnboarding ? "start" : "space-between"};
   overflow: hidden;
 
   @media screen and (max-width: ${SIZES.breakpoint.mobile}) {
@@ -136,10 +147,17 @@ const Wrapper = styled.div`
   }
 `;
 
-const Buttons = styled.div`
+const SearchButtons = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  > * {
+    box-shadow: ${(props) =>
+      props.isOnboarding
+        ? `0 0 0 3px ${COLORS.bkg.ui}, 0 0 0 5px ${COLORS.accent.primary}`
+        : "none"};
+  }
 `;
 
 const WeatherImage = styled.div`
@@ -220,4 +238,13 @@ const Location = styled.div`
   justify-content: center;
   align-items: center;
   gap: ${SIZES.dec_0_5};
+`;
+
+const OnboardingText = styled.h1`
+  margin-top: ${SIZES.inc_4};
+  font-size: ${SIZES.inc_1_5};
+
+  strong {
+    color: ${COLORS.accent.primary};
+  }
 `;

@@ -10,6 +10,7 @@ import { COLORS } from "../../theme/colors";
 import { SIZES } from "../../theme/spacing";
 import { LocationContext } from "../../context/locationContext";
 import { WeatherContext } from "../../context/weatherContext";
+import { UiContext } from "../../context/uiContext";
 import { getWeather, getLocationList } from "../../utils/api";
 
 export default function Locations({ visible, onClose }) {
@@ -20,6 +21,7 @@ export default function Locations({ visible, onClose }) {
   const inputRef = useRef();
   const locationCtx = useContext(LocationContext);
   const weatherCtx = useContext(WeatherContext);
+  const uiCtx = useContext(UiContext);
 
   useEffect(() => setIsVisible(visible), [visible]);
 
@@ -54,7 +56,7 @@ export default function Locations({ visible, onClose }) {
 
     const newData = await getWeather(payload);
     await weatherCtx.dispatch({ type: "update", payload: newData });
-
+    await uiCtx.dispatch({ type: "disableOnboarding" });
     setIsLoading(false);
     closeHandler();
   };

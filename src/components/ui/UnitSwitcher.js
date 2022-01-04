@@ -16,14 +16,14 @@ export default function UnitSwitcher() {
         <CircleButton
           variant="primary"
           isActive={uiCtx.state.isCelsius}
-          onClick={() => uiCtx.dispatch()}
+          onClick={() => uiCtx.dispatch({ type: "toggleUnits" })}
         >
           ºC
         </CircleButton>
         <CircleButton
           variant="primary"
           isActive={uiCtx.state.isFahrenheit}
-          onClick={() => uiCtx.dispatch()}
+          onClick={() => uiCtx.dispatch({ type: "toggleUnits" })}
         >
           ºF
         </CircleButton>

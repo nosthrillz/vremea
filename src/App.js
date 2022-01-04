@@ -6,12 +6,15 @@ import DailyHighlights from "./components/layout/DailyHighlights";
 import UnitSwitcher from "./components/ui/UnitSwitcher";
 // lib
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 // helpers
 import { SIZES } from "./theme/spacing";
+import { UiContext } from "./context/uiContext";
+import { COLORS } from "./theme/colors";
 
 function App() {
   const [showLocations, setShowLocations] = useState(false);
+  const uiCtx = useContext(UiContext);
 
   return (
     <Wrapper>
@@ -20,11 +23,20 @@ function App() {
         visible={showLocations}
         onClose={() => setShowLocations(false)}
       />
-
       <ForecastWrapper>
-        <UnitSwitcher />
-        <DayTileList currentDay={new Date()} />
-        <DailyHighlights />
+        {uiCtx.state.onboarding ? (
+          <div>
+            <OnboardingText>
+              Welcome to <strong>Vremea</strong> - the forecasting app
+            </OnboardingText>
+          </div>
+        ) : (
+          <>
+            <UnitSwitcher />
+            <DayTileList currentDay={new Date()} />
+            <DailyHighlights />
+          </>
+        )}
         <Footer>
           <a href="https://github.com/nosthrillz">NoSThrillZ</a> -{" "}
           <a href="https://devchallenges.io">devChallenges.io</a>
@@ -77,5 +89,14 @@ const Footer = styled.footer`
 
   @media screen and (max-width: ${SIZES.breakpoint.tablet}) {
     margin: 0;
+  }
+`;
+
+const OnboardingText = styled.h1`
+  margin-top: ${SIZES.inc_4};
+  font-size: ${SIZES.inc_2};
+
+  strong {
+    color: ${COLORS.accent.primary};
   }
 `;
