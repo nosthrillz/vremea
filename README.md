@@ -61,7 +61,7 @@ I built this using the following:
 1. Get the code:
 
     ```
-    git clone https://github.com/nosthrillz/redux-counter.git
+    git clone https://github.com/nosthrillz/vremea
     ```
 
 2. Install dependencies:
